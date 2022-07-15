@@ -1,0 +1,48 @@
+
+skull.png
+size: 1024, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Skeleton Attack
+  rotate: false
+  xy: 2, 71
+  size: 774, 37
+  orig: 774, 37
+  offset: 0, 0
+  index: -1
+Skeleton Dead
+  rotate: false
+  xy: 2, 37
+  size: 495, 32
+  orig: 495, 32
+  offset: 0, 0
+  index: -1
+Skeleton Hit
+  rotate: false
+  xy: 778, 76
+  size: 240, 32
+  orig: 240, 32
+  offset: 0, 0
+  index: -1
+Skeleton Idle
+  rotate: false
+  xy: 499, 32
+  size: 264, 37
+  orig: 264, 37
+  offset: 0, 0
+  index: -1
+Skeleton React
+  rotate: false
+  xy: 290, 3
+  size: 88, 32
+  orig: 88, 32
+  offset: 0, 0
+  index: -1
+Skeleton Walk
+  rotate: false
+  xy: 2, 2
+  size: 286, 33
+  orig: 286, 33
+  offset: 0, 0
+  index: -1
