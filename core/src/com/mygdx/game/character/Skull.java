@@ -1,17 +1,16 @@
 package com.mygdx.game.character;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Context;
 import com.mygdx.game.character.utils.LifeBar;
 import gdx.simplify.lib.TextureAnimation;
 
-public class Skull {
+public class Skull extends Character{
   public TextureAnimation skull_attack;
   public TextureAnimation skull_idle;
   public TextureAnimation skull_death;
-  LifeBar lifeBar;
 
   int pv = 75;
 
@@ -38,12 +37,13 @@ public class Skull {
 
   }
 
-  public void draw(){
+  @Override
+  public void draw(Batch batch, float parentAlpha) {
+    super.draw(batch, parentAlpha);
     elapseTime += Gdx.graphics.getDeltaTime();
 
     skull_idle.draw(elapseTime);
     lifeBar.draw();
-
   }
 
 
