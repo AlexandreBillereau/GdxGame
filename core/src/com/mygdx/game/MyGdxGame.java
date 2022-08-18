@@ -26,7 +26,7 @@ public class MyGdxGame extends Game {
 		setScreen(new FightScreen(this));
 ;	}
 
-	// supet.render() render the current setScreen()
+	// super.render() render the current setScreen()
 	// and u can change the current screen with show() methods
 	// ex : https://happycoding.io/tutorials/libgdx/game-screens
 	@Override

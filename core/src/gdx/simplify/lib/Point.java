@@ -2,6 +2,8 @@ package gdx.simplify.lib;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.Context;
 
 public class Point{
 
@@ -25,6 +27,7 @@ public class Point{
     }
 
     public void draw(){
+        shape.setProjectionMatrix(Context.camera.combined);
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(Color.RED);
         shape.circle(x,y,5);
