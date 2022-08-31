@@ -28,7 +28,7 @@ public class CardHand extends Group {
 
         //Set the distance on arc between the center and extremity
         //-- We need this dist for create a ratio to calculate card rotation.
-        putCardOnArc(15 + CARD_INVISIBLE, RADIUS, centerCircle);
+        putCardOnArc(15, RADIUS, centerCircle);
     }
 
     public void putCardOnArc(int nbPoints, double radius, Point center){
@@ -39,7 +39,7 @@ public class CardHand extends Group {
         double slice = (Math.PI * ARC_ANGLE) / nbPoints;
 
         Point pos;
-        for (int i = nbPoints - 1; i > 0; i--)
+        for (int i = nbPoints; i >= 0; i--)
         {
             double angle = slice * i + (Math.PI * RIGHT_ANGLE);
             pos = angleRadiusToPoint(angle, radius, center);
@@ -47,6 +47,7 @@ public class CardHand extends Group {
             card.setPosition(pos.x - card.getWidth()/2, pos.y - card.getHeight()/2 - translationY);
             card.setRotation(getRotation(getCurrentDist(pos)));
             addActor( card );
+            System.out.println("Z-index-" + i + " : " + card.getZIndex());
         }
 
     }
