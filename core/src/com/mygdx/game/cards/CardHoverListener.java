@@ -20,7 +20,7 @@ public class CardHoverListener extends InputListener {
         if (pointer == -1){
             parent.addAction(Actions.rotateBy(-parent.rotation_hand, 0.3f));
             parent.addAction(Actions.scaleBy(0.5f, 0.5f, 0.3f));
-            System.out.println("enter : " + pointer);
+//            parent.setZIndex(15);
             super.enter(event, x, y, pointer, fromActor);
         }
 
@@ -33,8 +33,7 @@ public class CardHoverListener extends InputListener {
         if(pointer == -1) {
             parent.addAction(Actions.rotateBy(parent.rotation_hand, 0.3f));
             parent.addAction(Actions.scaleBy(-0.5f, -0.5f, 0.3f));
-
-            System.out.println("exit : " + pointer);
+//            parent.setZIndex(0);
             super.exit(event, x, y, pointer, toActor);
         }
 

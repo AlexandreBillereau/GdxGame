@@ -2,122 +2,104 @@ package com.mygdx.game.cards;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import gdx.simplify.lib.Point;
+
+import java.util.ArrayList;
 
 public class CardHand extends Group {
 
     //Const
-    private final int CARD_INVISIBLE = 1;
     private final float RIGHT_ANGLE = 0.275f;
     private final float ARC_ANGLE = 0.45f;
     private final int CARD_ROTATION_MAX = 15;
     private final float RADIUS = 300;
     //Var
-    private final Point centerCircle;
     private int translationY;
     private int dist_max;
-    private Point left_extremity;
-    private Point right_extremity;
-    private Point center_arc;
 
-    public CardHand(){
-        //set the circle for use top arc to put card on.
-        centerCircle = new Point(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        // need extremity to calculate dist and Y translation
-        initExtremity(centerCircle);
+    ArrayList<Card> hand;
 
-        //Set the distance on arc between the center and extremity
-        //-- We need this dist for create a ratio to calculate card rotation.
-        putCardOnArc(15, RADIUS, centerCircle);
-    }
+    public CardHand() {
 
-    public void putCardOnArc(int nbPoints, double radius, Point center){
-
-        setCenterArc();
-        setDistMax();
-
-        double slice = (Math.PI * ARC_ANGLE) / nbPoints;
-
-        Point pos;
-        for (int i = nbPoints; i >= 0; i--)
-        {
-            double angle = slice * i + (Math.PI * RIGHT_ANGLE);
-            pos = angleRadiusToPoint(angle, radius, center);
-            Card card = new Card();
-            card.setPosition(pos.x - card.getWidth()/2, pos.y - card.getHeight()/2 - translationY);
-            card.setRotation(getRotation(getCurrentDist(pos)));
-            addActor( card );
-            System.out.println("Z-index-" + i + " : " + card.getZIndex());
-        }
+         hand = new ArrayList<>();
+         initHand();
 
     }
 
-    public void setCenterArc(){
-        center_arc = angleRadiusToPointTranslate(Math.toRadians(90), RADIUS, centerCircle);
+    void initHand(){
+
+      for(int i = 0; i < 5; i++){
+
+        //todo: get random card form deck
+        Card temp = new Card();
+        // end get random card
+
+        hand.add(temp);
+        addActor(temp);
+
+
+      }
+
+      updateHand();
+
     }
 
-    public void setDistMax(){
-        dist_max = ( center_arc.x - left_extremity.x );
-    }
+    void updateHand(){
+      int hand_length = hand.size();
 
-    public double getCurrentDist(Point current){
-        return center_arc.x - current.x;
-    }
+      if( !isEven(hand_length) ){
 
-    public float getRotation(double dist){
-        return (float)((dist/dist_max) * CARD_ROTATION_MAX);
-    }
+        int middle = (hand_length / 2);
 
-    public void setTranslationY(){
-        Point _center = getCenterBetweenPoint(right_extremity,left_extremity);
-        translationY = _center.y;
-    }
+        Card card = hand.get(middle);
+        int x = Gdx.graphics.getWidth()/2;
+        float y = 0;
+        card.setPosition(x, y);
 
-    public Point getCenterBetweenPoint(Point left_point, Point right_point){
-        Point center_point = new Point((left_point.x + right_point.x) /2,
-                (left_point.y + right_point.y) /2);
-
-        return center_point;
-    }
-
-    public void initExtremity(Point center){
-
-        double angle = Math.PI * RIGHT_ANGLE;
-        Point right_point = angleRadiusToPoint(angle, RADIUS, center);
-
-        angle = Math.PI * (RIGHT_ANGLE + ARC_ANGLE);
-        Point left_point = angleRadiusToPoint(angle, RADIUS, center);
-
-        right_extremity = right_point;
-        left_extremity = left_point;
-
-        //Get the real Position with add the translation.
-        setTranslationY();
-
-        right_extremity.y -= translationY;
-        left_extremity.y -= translationY;
+        updatePreviousCard(middle - 1, x, y);
+        updateNextCard(middle + 1, x, y);
 
 
+      }
+//      else {
+//
+//      }
 
 
     }
 
-    public Point angleRadiusToPoint(double angle, double radius, Point center){
-        int pos_x = (int)(center.x + radius * Math.cos(angle));
-        int pos_y = (int)(center.y + radius * Math.sin(angle));
-
-        return new Point(pos_x, pos_y);
-    }
-
-    public Point angleRadiusToPointTranslate(double angle, double radius, Point center){
-        int pos_x = (int)(center.x + radius * Math.cos(angle));
-        int pos_y = (int)(center.y + radius * Math.sin(angle)) - translationY;
-
-        return new Point(pos_x, pos_y);
+    void updatePreviousCard(int previous, float x, float y){
+      if(previous >= 0){
+        System.out.println("previous :" + previous);
+        Card card = hand.get(previous);
+        x = x - 40;
+        card.setPosition( x , y);
+        updatePreviousCard(previous - 1, x, y);
+      }
     }
 
 
+    void updateNextCard(int next, float x, float y){
+      if( next < hand.size() ){
+        System.out.println("Next :" + next);
+        Card card = hand.get(next);
+        x = x + 40;
+        card.setPosition( x , y);
+        updateNextCard(next + 1, x, y);
+      }
+    }
 
+    boolean isEven(int number){
+      return number % 2 == 0;
+    }
 
 
 }
+
+
+
+
+
+
+
+
+

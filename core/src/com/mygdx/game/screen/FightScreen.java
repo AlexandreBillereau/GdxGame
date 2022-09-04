@@ -2,7 +2,10 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.mygdx.game.Context;
@@ -22,6 +25,8 @@ public class FightScreen extends ScreenAdapter {
   Skull skull ;
   Hero hero;
   Button button_atk;
+  ShapeRenderer point;
+  SpriteBatch batch;
 
   CardHand cardHand;
   Stage stage;
@@ -42,6 +47,11 @@ public class FightScreen extends ScreenAdapter {
     Gdx.input.setInputProcessor(stage);
 
     logic = new FightLogic(stage);
+
+
+    point = new ShapeRenderer();
+    point.setColor(Color.RED);
+    batch = new SpriteBatch();
   }
 
   //change screen
@@ -58,6 +68,10 @@ public class FightScreen extends ScreenAdapter {
     stage.act(Gdx.graphics.getDeltaTime());
     stage.draw();
     logic.run();
+
+    point.begin(ShapeRenderer.ShapeType.Filled);
+    point.circle(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2, 5);
+    point.end();
   }
 
   @Override

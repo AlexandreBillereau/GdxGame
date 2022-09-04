@@ -21,7 +21,6 @@ public class CardDragListener extends DragListener {
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
         first_x = x;
         first_y = y;
-        System.out.println("touchDown : " + pointer);
         return super.touchDown(event, x, y, pointer, button);
     }
 
@@ -32,14 +31,12 @@ public class CardDragListener extends DragListener {
 
         //moveBy add the dist to x and y
         parent.moveBy( dist_x, dist_y);
-        System.out.println("touchDragged : " + pointer);
         super.touchDragged(event, x, y, pointer);
     }
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
         parent.addAction(Actions.moveTo(parent.position_hand_x, parent.position_hand_y, 0.5f));
-        System.out.println("touchUp : " + pointer);
         super.touchUp(event, x, y, pointer, button);
     }
 

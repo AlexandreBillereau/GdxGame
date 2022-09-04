@@ -1,31 +1,38 @@
 package com.mygdx.game.cards;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-import gdx.simplify.lib.Point;
 
 public class Card extends Image {
 
+
+
     float position_hand_x;
     float position_hand_y;
-
     float rotation_hand;
+    int z_index;
 
     public Card(){
         super(new Texture("assets/Cards/Web 1920 – 1.png"));
         setWidth(getWidth()/3);
         setHeight(getHeight()/3);
-        setOrigin(getHeight()/2, getWidth()/2);
+        setOrigin(getWidth()/2, getHeight()/2);
         addListener(new CardDragListener(this));
         addListener(new CardHoverListener(this));
+
+
+        z_index = getZIndex();
     }
 
     @Override
+    // change for change position from origin and not left-bottom corner
+    // setPosition not affected by setOrigin.
     public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        position_hand_x = x;
-        position_hand_y = y;
+        position_hand_x = x - getWidth()/2;
+        position_hand_y = y - getHeight()/2;
+        super.setPosition(position_hand_x, position_hand_y);
+
     }
 
     @Override
@@ -38,4 +45,5 @@ public class Card extends Image {
     public void act(float delta) {
         super.act(delta);
     }
+
 }
