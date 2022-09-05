@@ -2,6 +2,7 @@ package com.mygdx.game.cards;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Card extends Image {
@@ -45,5 +46,15 @@ public class Card extends Image {
     public void act(float delta) {
         super.act(delta);
     }
+
+
+    public void moveTo(float x, float y, float duration){
+        position_hand_x = x - getWidth()/2;
+        position_hand_y = y - getHeight()/2;
+        addAction(Actions.moveTo(position_hand_x, position_hand_y, duration));
+    }
+
+
+
 
 }

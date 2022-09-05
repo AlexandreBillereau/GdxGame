@@ -1,18 +1,16 @@
 package com.mygdx.game.cards;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 public class CardDragListener extends DragListener {
 
-    Card parent;
+    Card linked_card;
+    CardHand linked_hand;
 
     public CardDragListener(Card card){
-        parent = card;
+        linked_card = card;
     }
 
     float first_x, first_y, dist_x, dist_y;
@@ -30,13 +28,13 @@ public class CardDragListener extends DragListener {
         dist_y = y - first_y;
 
         //moveBy add the dist to x and y
-        parent.moveBy( dist_x, dist_y);
+        linked_card.moveBy( dist_x, dist_y);
         super.touchDragged(event, x, y, pointer);
     }
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        parent.addAction(Actions.moveTo(parent.position_hand_x, parent.position_hand_y, 0.5f));
+        linked_card.addAction(Actions.moveTo(linked_card.position_hand_x, linked_card.position_hand_y, 0.5f));
         super.touchUp(event, x, y, pointer, button);
     }
 
