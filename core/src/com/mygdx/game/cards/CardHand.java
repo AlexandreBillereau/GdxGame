@@ -9,19 +9,19 @@ public class CardHand extends Group {
 
     ArrayList<Card> hand;
     final int DIST_BETWEEN_CARD = 40;
-    final int DIST_BETWEEN_CARD_ON_FOCUS = 60;
+    final int DIST_BETWEEN_CARD_ON_FOCUS = 20;
 
     public CardHand() {
 
-         hand = new ArrayList<>();
-         initHand();
-         Pointer.player_hand = this;
+        Pointer.player_hand = this;
+        hand = new ArrayList<>();
+        initHand();
 
     }
 
     void initHand(){
 
-      for(int i = 0; i < 5; i++){
+      for(int i = 0; i < 3; i++){
 
         //todo: get random card form deck
         Card card = new Card();
@@ -47,7 +47,7 @@ public class CardHand extends Group {
         Card card = hand.get(middle);
         float x = Gdx.graphics.getWidth()/2;
         float y = 0;
-        card.moveTo(x,y,1);
+        card.moveToInit(x,y,1);
 
         updateHand(middle - 1, middle + 1, x, x, y);
       }
@@ -60,11 +60,11 @@ public class CardHand extends Group {
         Card card = hand.get(middle_left);
         float x_left = Gdx.graphics.getWidth()/2 - DIST_BETWEEN_CARD/2;
         float y = 0;
-        card.moveTo(x_left,y,1);
+        card.moveToInit(x_left,y,1);
 
         card = hand.get(middle_right);
         float x_right = Gdx.graphics.getWidth()/2 + DIST_BETWEEN_CARD/2;
-        card.moveTo(x_right,y,1);
+        card.moveToInit(x_right,y,1);
 
         updateHand(middle_left - 1, middle_right + 1, x_left, x_right, y);
 
@@ -87,32 +87,45 @@ public class CardHand extends Group {
     }
 
 
-    void updateHandOnFocusEnter(int previous, int next, float previous_x, float next_x, float y)
+    void updateHandOnFocusEnter(int previous, int next, float previous_x, float next_x)
     {
+
       previous_x -= DIST_BETWEEN_CARD_ON_FOCUS;
       next_x += DIST_BETWEEN_CARD_ON_FOCUS;
 
+      System.out.println("next x devrait etre : " + next_x);
+      System.out.println("previous x devrait etre : " + previous_x);
 
-      updatePreviousCard(previous, previous_x, y);
-      updateNextCard(next, next_x, y);
+      Card card = hand.get(next);
+      card.moveTo(next_x, card.getY(),1);
+
+      updateFocusNextCard(next, next_x);
+      updateFocusPrevCard(previous, previous_x);
 
       if(previous >= 0 || next < hand.size()) {
-        updateHand(previous - 1, next + 1, previous_x, next_x, y);
+        updateHand(previous - 1, next + 1, previous_x, next_x, 0);
       }
+
+
     }
 
 
-  void updateHandOnFocusEnd(int previous, int next, float previous_x, float next_x, float y)
+  void updateHandOnFocusEnd(int previous, int next, float previous_x, float next_x)
   {
-    previous_x += DIST_BETWEEN_CARD/2;
-    next_x -= DIST_BETWEEN_CARD/2;
+    previous_x += DIST_BETWEEN_CARD_ON_FOCUS;
+    next_x -= DIST_BETWEEN_CARD_ON_FOCUS;
 
+    System.out.println("next x devrait etre : " + next_x);
+    System.out.println("previous x devrait etre : " + previous_x);
 
-    updatePreviousCard(previous, previous_x, y);
-    updateNextCard(next, next_x, y);
+    Card card = hand.get(next);
+    card.moveTo(next_x, card.getY(),1);
+
+    updateFocusNextCard(next, next_x);
+    updateFocusPrevCard(previous, previous_x);
 
     if(previous >= 0 || next < hand.size()) {
-      updateHand(previous - 1, next + 1, previous_x, next_x, y);
+      updateHand(previous - 1, next + 1, previous_x, next_x, 0);
     }
   }
 
@@ -123,7 +136,7 @@ public class CardHand extends Group {
     void updatePreviousCard(int previous, float x, float y){
         if (previous >= 0){
           Card card = hand.get(previous);
-          card.moveTo(x,y,1);
+          card.moveToInit(x,y,1);
         }
     }
 
@@ -131,10 +144,29 @@ public class CardHand extends Group {
 
       if( next < hand.size()){
         Card card = hand.get(next);
-        card.moveTo(x,y,1);
+        card.moveToInit(x,y,1);
       }
 
     }
+
+
+    void updateFocusPrevCard(int previous, float x){
+
+      if (previous >= 0){
+        Card card = hand.get(previous);
+        card.moveTo(x, card.getY(),1);
+      }
+
+    }
+
+  void updateFocusNextCard(int next, float x){
+
+    if (next < hand.size()){
+      Card card = hand.get(next);
+      card.moveTo(x, card.getY(),1);
+    }
+
+  }
 
     boolean isEven(int number){
       return number % 2 == 0;

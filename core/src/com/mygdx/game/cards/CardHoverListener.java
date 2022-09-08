@@ -5,12 +5,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
+import java.util.ArrayList;
+
 public class CardHoverListener extends InputListener {
 
     Card linked_card;
+    ArrayList<Card> hand;
 
     public CardHoverListener(Card card){
         linked_card = card;
+        hand = Pointer.player_hand.hand;
     }
 
     @Override
@@ -19,10 +23,20 @@ public class CardHoverListener extends InputListener {
         if (pointer == -1){
             linked_card.addAction(Actions.rotateBy(-linked_card.rotation_hand, 0.3f));
             linked_card.addAction(Actions.scaleBy(0.5f, 0.5f, 0.3f));
-//            parent.setZIndex(15);
-            int current_card = Pointer.player_hand.hand.indexOf(linked_card);
-            Pointer.player_hand.updateHandOnFocusEnter(current_card - 1, current_card + 1, linked_card.getX(), linked_card.getX(), 0 );
+
+            int current_card = hand.indexOf(linked_card);
+            System.out.println("index of :" + current_card);
+            System.out.println("X :" + linked_card.getX());
+
+            //todo: remove if its for debug
+            if(current_card == 1){
+                float previous_x = hand.get(current_card - 1).getX();
+                float next_x = hand.get(current_card + 1).getX();
+                Pointer.player_hand.updateHandOnFocusEnter(current_card - 1, current_card + 1 , previous_x, next_x );
+            }
+
             super.enter(event, x, y, pointer, fromActor);
+
         }
 
 
@@ -34,9 +48,13 @@ public class CardHoverListener extends InputListener {
         if(pointer == -1) {
             linked_card.addAction(Actions.rotateBy(linked_card.rotation_hand, 0.3f));
             linked_card.addAction(Actions.scaleBy(-0.5f, -0.5f, 0.3f));
-//            parent.setZIndex(0);
-            int current_card = Pointer.player_hand.hand.indexOf(linked_card);
-            Pointer.player_hand.updateHandOnFocusEnd(current_card - 1, current_card + 1, linked_card.getX(), linked_card.getX(), 0);
+
+            int current_card = hand.indexOf(linked_card);
+            if(current_card == 1){
+                float previous_x = hand.get(current_card - 1).getX();
+                float next_x = hand.get(current_card + 1).getX();
+                Pointer.player_hand.updateHandOnFocusEnd(current_card - 1, current_card + 1 , previous_x, next_x );
+            }
             super.exit(event, x, y, pointer, toActor);
         }
 

@@ -49,6 +49,11 @@ public class Card extends Image {
 
 
     public void moveTo(float x, float y, float duration){
+        addAction(Actions.moveTo(x, y, duration));
+    }
+
+
+    public void moveToInit(float x, float y, float duration){
         position_hand_x = x - getWidth()/2;
         position_hand_y = y - getHeight()/2;
         addAction(Actions.moveTo(position_hand_x, position_hand_y, duration));
