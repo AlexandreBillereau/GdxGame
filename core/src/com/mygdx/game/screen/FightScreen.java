@@ -58,8 +58,6 @@ public class FightScreen extends ScreenAdapter {
   @Override
   public void show(){
 
-
-
   }
 
   @Override
@@ -70,7 +68,7 @@ public class FightScreen extends ScreenAdapter {
     logic.run();
 
     point.begin(ShapeRenderer.ShapeType.Filled);
-    point.circle(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2, 5);
+    point.circle(Context.viewPortWidth/2,Context.viewPortHeight/2, 5);
     point.end();
   }
 

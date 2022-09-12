@@ -11,6 +11,7 @@ public class CardDragListener extends DragListener {
 
     public CardDragListener(Card card){
         linked_card = card;
+        linked_hand = Pointer.player_hand;
     }
 
     float first_x, first_y, dist_x, dist_y;
@@ -32,9 +33,11 @@ public class CardDragListener extends DragListener {
         super.touchDragged(event, x, y, pointer);
     }
 
+
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        linked_card.addAction(Actions.moveTo(linked_card.position_hand_x, linked_card.position_hand_y, 0.5f));
+//        linked_card.addAction(Actions.moveTo(linked_card.position_hand_x, linked_card.position_hand_y, 0.5f));
+        linked_hand.updateHand(linked_hand.findPosition());
         super.touchUp(event, x, y, pointer, button);
     }
 
