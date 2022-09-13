@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class CardHand extends Group {
 
     ArrayList<Card> hand;
-    final int DIST_BETWEEN_CARD = 40;
-    final int EVEN_GAP =  20;
+    final int DIST_BETWEEN_CARD = 60;
+    final int EVEN_GAP =  80;
     final int OUT = 1;
     final float DURATION = 0.2f;
 
@@ -67,6 +67,9 @@ public class CardHand extends Group {
       for(int i = 0 ; i < points.size(); i++){
         if(i < cardIndex){
           points.get(i).x -= 30;
+        }
+        if(i == 0){
+          points.get(cardIndex).y = (int)hand.get(cardIndex).getHeight()/2;
         }
         if (i > cardIndex){
           points.get(i).x += 30;

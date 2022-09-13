@@ -11,6 +11,7 @@ public class CardHoverListener extends InputListener {
 
     Card linked_card;
     ArrayList<Card> hand;
+    int z_index;
 
     public CardHoverListener(Card card){
         linked_card = card;
@@ -22,13 +23,14 @@ public class CardHoverListener extends InputListener {
 
         if (pointer == -1){
             linked_card.addAction(Actions.rotateBy(-linked_card.rotation_hand, 0.3f));
-            linked_card.addAction(Actions.scaleBy(0.5f, 0.5f, 0.3f));
+            linked_card.addAction(Actions.scaleBy(0.2f, 0.2f, 0.3f));
 
 
             int current_card = hand.indexOf(linked_card);
+            z_index = hand.get(current_card).getZIndex();
+            hand.get(current_card).setZIndex(hand.size());
 
             Pointer.player_hand.updateHand(Pointer.player_hand.findPosition(current_card));
-
 
             super.enter(event, x, y, pointer, fromActor);
 
@@ -42,11 +44,12 @@ public class CardHoverListener extends InputListener {
 
         if(pointer == -1) {
             linked_card.addAction(Actions.rotateBy(linked_card.rotation_hand, 0.3f));
-            linked_card.addAction(Actions.scaleBy(-0.5f, -0.5f, 0.3f));
+            linked_card.addAction(Actions.scaleBy(-0.2f, -0.2f, 0.3f));
 
 
 
-
+            int current_card = hand.indexOf(linked_card);
+            hand.get(current_card).setZIndex(z_index);
             Pointer.player_hand.updateHand(Pointer.player_hand.findPosition());
 
 
