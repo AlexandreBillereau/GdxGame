@@ -68,7 +68,7 @@ public class FightScreen extends ScreenAdapter {
     logic.run();
 
     point.begin(ShapeRenderer.ShapeType.Filled);
-    point.circle(Context.viewPortWidth/2,Context.viewPortHeight/2, 5);
+    point.rect(0, Context.viewPortHeight/4, Context.viewPortWidth, 2);
     point.end();
   }
 

@@ -11,7 +11,8 @@ public class CardHand extends Group {
 
     ArrayList<Card> hand;
     final int DIST_BETWEEN_CARD = 60;
-    final int EVEN_GAP =  80;
+    final int EVEN_GAP =  20;
+    final int CARD_OFFSET = 40;
     final int OUT = 1;
     final float DURATION = 0.2f;
 
@@ -64,18 +65,17 @@ public class CardHand extends Group {
     ArrayList<Point> findPosition(int cardIndex){
       ArrayList<Point> points = findPosition();
 
-      for(int i = 0 ; i < points.size(); i++){
-        if(i < cardIndex){
-          points.get(i).x -= 30;
-        }
-        if(i == 0){
-          points.get(cardIndex).y = (int)hand.get(cardIndex).getHeight()/2;
-        }
-        if (i > cardIndex){
-          points.get(i).x += 30;
-        }
+      for(int i = 0 ; i < points.size(); i++) {
+          if (i < cardIndex) {
+              points.get(i).x -= CARD_OFFSET;
+          }
+          if (i == 0) {
+              points.get(cardIndex).y = (int) hand.get(cardIndex).getHeight() / 2;
+          }
+          if (i > cardIndex) {
+              points.get(i).x += CARD_OFFSET;
+          }
       }
-
       return points;
     }
 
