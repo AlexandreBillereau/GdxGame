@@ -7,8 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Card extends Image {
 
-
-
     float position_hand_x;
     float position_hand_y;
     float rotation_hand;

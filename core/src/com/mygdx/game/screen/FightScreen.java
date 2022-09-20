@@ -16,6 +16,7 @@ import com.mygdx.game.character.Hero;
 import com.mygdx.game.character.Skull;
 import com.mygdx.game.character.utils.button.Button;
 import com.mygdx.game.logic.FightLogic;
+import com.mygdx.game.utils.BezierCurve;
 
 import javax.xml.transform.Source;
 
@@ -26,6 +27,8 @@ public class FightScreen extends ScreenAdapter {
   Hero hero;
   Button button_atk;
   ShapeRenderer point;
+
+  BezierCurve bezier;
   SpriteBatch batch;
 
   CardHand cardHand;
@@ -48,7 +51,7 @@ public class FightScreen extends ScreenAdapter {
 
     logic = new FightLogic(stage);
 
-
+    bezier = new BezierCurve();
     point = new ShapeRenderer();
     point.setColor(Color.RED);
     batch = new SpriteBatch();
@@ -70,6 +73,8 @@ public class FightScreen extends ScreenAdapter {
     point.begin(ShapeRenderer.ShapeType.Filled);
     point.rect(0, Context.viewPortHeight/4, Context.viewPortWidth, 2);
     point.end();
+
+    bezier.render();
   }
 
   @Override
