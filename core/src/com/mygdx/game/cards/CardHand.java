@@ -70,7 +70,7 @@ public class CardHand extends Group {
               points.get(i).x -= CARD_OFFSET;
           }
           if (i == 0) {
-              points.get(cardIndex).y = (int) hand.get(cardIndex).getHeight() / 2;
+              points.get(cardIndex).y = (int) hand.get(cardIndex).getHeight() / 4;
           }
           if (i > cardIndex) {
               points.get(i).x += CARD_OFFSET;

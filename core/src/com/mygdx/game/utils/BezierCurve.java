@@ -57,7 +57,7 @@ public class BezierCurve {
             bezier.valueAt(out, i);
             ShapeRenderer c = points.get((int)(i*10));
             c.begin(ShapeRenderer.ShapeType.Filled);
-            c.circle(out.x, out.y, 5);
+            c.circle(out.x, out.y, 7);
             c.end();
         }
 

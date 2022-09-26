@@ -1,9 +1,10 @@
 package com.mygdx.game.cards;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.Context;
 
 public class Card extends Image {
 
@@ -12,13 +13,21 @@ public class Card extends Image {
     float rotation_hand;
     int z_index;
 
+    boolean played = false;
+    boolean drag = false;
+
+    float first_x, first_y, first_x_click, first_y_click;
+
+
+    CardListener card_lister;
+
     public Card(){
         super(new Texture("assets/Cards/Web 1920 – 1.png"));
+        card_lister = new CardListener(this);
         setWidth(getWidth()/3);
         setHeight(getHeight()/3);
         setOrigin(getWidth()/2, getHeight()/2);
-        addListener(new CardDragListener(this));
-        addListener(new CardHoverListener(this));
+        addListener(card_lister);
 
 
         z_index = getZIndex();
@@ -42,6 +51,7 @@ public class Card extends Image {
 
     @Override
     public void act(float delta) {
+        followCursor();
         super.act(delta);
     }
 
@@ -53,8 +63,14 @@ public class Card extends Image {
 
     public void moveToInit(float x, float y, float duration){
         position_hand_x = x - getWidth()/2;
-        position_hand_y = y - getHeight()/2;
+        position_hand_y = y - getHeight()/4;
         addAction(Actions.moveTo(position_hand_x, position_hand_y, duration));
+    }
+
+    private void followCursor(){
+        if(drag){
+            moveTo(  first_x + Gdx.input.getX()-first_x_click, Context.viewPortHeight - Gdx.input.getY() - first_y_click, 0);
+        }
     }
 
 
