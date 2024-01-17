@@ -10,7 +10,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("idle_test");
+		config.setTitle("Into the free asset <3");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
 }
